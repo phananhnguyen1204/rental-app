@@ -1,9 +1,24 @@
 import { useLocation, useNavigate } from "react-router";
 import { FcHome } from "react-icons/fc";
+import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function AppLayOut() {
+  const [pageState, setPageState] = useState("Sign in");
+  const auth = getAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      //if user exits, or authenticated
+      if (user) {
+        setPageState("Profile");
+      } else {
+        setPageState("Sign in");
+      }
+    });
+  }, [auth]);
 
   function pathMatchRoute(route) {
     if (route === location.pathname) {
@@ -46,13 +61,13 @@ function AppLayOut() {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold  border-b-[3px]  ${
-                pathMatchRoute("/sign-in")
+                pathMatchRoute("/sign-in") || pathMatchRoute("/profile")
                   ? "text-black border-b-red-500"
                   : "text-gray-400 border-b-transparent"
               }`}
-              onClick={() => navigate("/sign-in")}
+              onClick={() => navigate("/profile")}
             >
-              Sign in
+              {pageState}
             </li>
           </ul>
         </div>
