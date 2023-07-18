@@ -1,5 +1,5 @@
 import { async } from "@firebase/util";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import {
@@ -9,16 +9,24 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditListing() {
   const navigate = useNavigate();
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const auth = getAuth();
   const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState(null);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -51,6 +59,38 @@ function EditListing() {
     longitude,
     images,
   } = formData;
+
+  //checking if the listing is belong to user, only that you can edit the listing
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You can not edit this listing");
+      navigate("/");
+    }
+  }, [auth.currentUser.uid, listing, navigate]);
+
+  const params = useParams();
+  //fetch data from listing to fill the form
+  useEffect(
+    function () {
+      setLoading(true);
+      async function fetchListing() {
+        const docRef = doc(db, "listings", params.listingId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setListing(docSnap.data());
+          setFormData({ ...docSnap.data() });
+          setLoading(false);
+        } else {
+          navigate("/");
+          toast.error("Listing does not exist");
+        }
+      }
+
+      fetchListing();
+    },
+    [navigate, params.listingId]
+  );
 
   const onChange = (e) => {
     let boolean = null;
@@ -171,16 +211,19 @@ function EditListing() {
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
     delete formDataCopy.latitude;
     delete formDataCopy.longitude;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    //update data to Cloud Firestore
+    const docRef = doc(db, "listings", params.listingId);
+
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
-    toast.success("Listing created");
+    toast.success("Listing edited successfully");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   if (loading) return <Spinner></Spinner>;
   return (
     <main className="max-w-md px-2 mx-auto">
-      <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
+      <h1 className="text-3xl text-center mt-6 font-bold">Edit Listing</h1>
       <form onSubmit={onSubmit}>
         <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
         <div className="flex ">
@@ -460,7 +503,7 @@ function EditListing() {
           type="submit"
           className="mb-6 w-full px-7 py-3 bg-blue-600 text-white text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg active:bg-blue-800 active:shadow-lg transition duration-150 ease-out"
         >
-          Create listing
+          Edit listing
         </button>
       </form>
     </main>
