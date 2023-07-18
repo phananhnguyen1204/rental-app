@@ -18,13 +18,6 @@ function AppLayOut() {
             className="h-12 w-10 mr-2 cursor-pointer"
             onClick={() => navigate("/")}
           ></FcHome>
-          {/* <img
-            // src="https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg"
-            src="https://o.remove.bg/downloads/c0c9ec44-28ec-49cc-bf3e-c8acf8a57cab/3529048-removebg-preview.png"
-            alt="logo"
-            className="h-14 cursor-pointer "
-            onClick={() => navigate("/")}
-          ></img> */}
           <p className="font-semibold border-b-[2px] text-black border-b-red-500 cursor-pointer">
             Your best home
           </p>

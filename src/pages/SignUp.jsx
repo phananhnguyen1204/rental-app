@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { db } from "../firebase.js";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -49,9 +50,10 @@ function SignUp() {
       //adding person to database
       //add to collection "users"
       await setDoc(doc(db, "users", user.uid), formDataCopy);
+      toast.success("Sign up was successful");
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      toast.error("Something went wrong with the registration");
     }
   };
 
