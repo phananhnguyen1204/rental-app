@@ -24,20 +24,20 @@ function SignIn() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const auth = getAuth();
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    if (userCredential.user) {
-      toast.success("Sign in successfully");
-      navigate("/");
-    }
 
     try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        toast.success("Sign in successfully ✅");
+        navigate("/");
+      }
     } catch (error) {
-      toast.error("Sign in failed");
+      toast.error("Email or password is invalid. Please try again ❌");
       console.log(error.message);
     }
   };

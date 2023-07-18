@@ -29,6 +29,7 @@ function OAuth() {
           timestamp: serverTimestamp(),
         });
       }
+      toast.error("Sign up with Google successfully ✅");
       navigate("/");
     } catch (error) {
       toast.error("Could not sign up with Google");
