@@ -21,9 +21,12 @@ import {
   FaChair,
 } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
+import Contact from "../components/Contact";
 
 function Listing() {
   const params = useParams();
+  const auth = getAuth();
+  const [contactLandlord, setContactLandlord] = useState(false);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
@@ -134,7 +137,7 @@ function Listing() {
               {listing.furnished ? "Furnished" : "Not furnished"}
             </li>
           </ul>
-          {/* {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
+          {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
             <div className="mt-6">
               <button
                 onClick={() => setContactLandlord(true)}
@@ -146,7 +149,7 @@ function Listing() {
           )}
           {contactLandlord && (
             <Contact userRef={listing.userRef} listing={listing} />
-          )} */}
+          )}
         </div>
         <div className="bg-blue-300 w-full h-[200px] lg:h-[400px] z-10 overflow-x-hidden"></div>
       </div>
