@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
+import { FcHome } from "react-icons/fc";
 
 function AppLayOut() {
   const location = useLocation();
@@ -12,13 +13,21 @@ function AppLayOut() {
   return (
     <div className="bg-white border-b shadow-sm sticky top-0 z-100">
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
-        <div>
-          <img
-            src="https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg"
-            alt="logo"
-            className="h-5 cursor-pointer "
+        <div className="flex justify-center items-center">
+          <FcHome
+            className="h-12 w-10 mr-2 cursor-pointer"
             onClick={() => navigate("/")}
-          ></img>
+          ></FcHome>
+          {/* <img
+            // src="https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg"
+            src="https://o.remove.bg/downloads/c0c9ec44-28ec-49cc-bf3e-c8acf8a57cab/3529048-removebg-preview.png"
+            alt="logo"
+            className="h-14 cursor-pointer "
+            onClick={() => navigate("/")}
+          ></img> */}
+          <p className="font-semibold border-b-[2px] text-black border-b-red-500 cursor-pointer">
+            Your best home
+          </p>
         </div>
         <div>
           <ul className="flex space-x-10">
