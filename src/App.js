@@ -32,10 +32,12 @@ function App() {
             element={<ForgotPassword></ForgotPassword>}
           ></Route>
           <Route path="/offers" element={<Offers></Offers>}></Route>
-          <Route
-            path="/create-listing"
-            element={<CreateListing></CreateListing>}
-          ></Route>
+          <Route path="/create-listing" element={<PrivateRoute></PrivateRoute>}>
+            <Route
+              path="/create-listing"
+              element={<CreateListing></CreateListing>}
+            ></Route>
+          </Route>
         </Routes>
       </Router>
       <ToastContainer
