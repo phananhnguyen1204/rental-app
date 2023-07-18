@@ -30,7 +30,7 @@ function AppLayOut() {
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
         <div className="flex justify-center items-center">
           <FcHome
-            className="h-12 w-10 mr-2 cursor-pointer"
+            className="mr-2 text-5xl bg-red-200 rounded-full p-1 border-2 cursor-pointer my-1"
             onClick={() => navigate("/")}
           ></FcHome>
           <p className="font-semibold border-b-[2px] text-black border-b-red-500 cursor-pointer">
