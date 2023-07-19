@@ -22,6 +22,7 @@ import {
 } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
 import Contact from "../components/Contact";
+import Map from "../components/Map";
 
 function Listing() {
   const params = useParams();
@@ -30,6 +31,8 @@ function Listing() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  const lat = listing?.geolocation?.lat;
+  const lng = listing?.geolocation?.lng;
 
   SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -151,7 +154,11 @@ function Listing() {
             <Contact userRef={listing.userRef} listing={listing} />
           )}
         </div>
-        <div className="bg-blue-300 w-full h-[200px] lg:h-[400px] z-10 overflow-x-hidden"></div>
+
+        {/* Map */}
+        <div className=" w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 lg:mt-0 md:ml-2">
+          <Map lat={lat} lng={lng}></Map>
+        </div>
       </div>
     </main>
   );
