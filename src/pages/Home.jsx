@@ -131,6 +131,7 @@ function Home() {
                 <ListingItem
                   key={listing.id}
                   listing={listing.data}
+                  id={listing.id}
                 ></ListingItem>
               ))}
             </ul>
@@ -152,6 +153,7 @@ function Home() {
                 <ListingItem
                   key={listing.id}
                   listing={listing.data}
+                  id={listing.id}
                 ></ListingItem>
               ))}
             </ul>
@@ -173,6 +175,7 @@ function Home() {
                 <ListingItem
                   key={listing.id}
                   listing={listing.data}
+                  id={listing.id}
                 ></ListingItem>
               ))}
             </ul>
