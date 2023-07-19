@@ -38,7 +38,6 @@ function Slider() {
       });
       setListings(listings);
       setLoading(false);
-      console.log(listings);
     }
 
     fetchListings();
