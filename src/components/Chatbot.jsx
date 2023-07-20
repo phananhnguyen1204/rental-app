@@ -9,9 +9,9 @@ function Chatbot() {
       onClick={() => setShow((prev) => !prev)}
     >
       <button
-        className={`text-4xl w-15 h-15  rounded p-2 border-2 ${
-          show ? "bg-red-200" : "bg-blue-200"
-        }`}
+        className={`${
+          show ? "text-xl border-1" : "text-4xl border-2"
+        } w-15 h-15  rounded p-2  ${show ? "bg-red-200" : "bg-blue-200"}`}
       >
         {show ? <GrClose></GrClose> : <FaRobot></FaRobot>}
       </button>
