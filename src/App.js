@@ -18,6 +18,7 @@ import CreateListing from "./pages/CreateListing";
 import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import Category from "./pages/Category";
+import Chatbot from "./components/Chatbot";
 function App() {
   return (
     <>
@@ -57,6 +58,7 @@ function App() {
             ></Route>
           </Route>
         </Routes>
+        <Chatbot></Chatbot>
       </Router>
       <ToastContainer
         position="top-right"
